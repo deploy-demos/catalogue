@@ -5,6 +5,7 @@ package catalogue
 
 import (
 	"errors"
+	"math/rand"
 	"strings"
 	"time"
 
@@ -104,6 +105,12 @@ func (s *catalogueService) List(tags []string, order string, pageNum, pageSize i
 	}
 
 	socks = cut(socks, pageNum, pageSize)
+
+	// slow things down, muahaha!
+	rand.Seed(time.Now().UnixNano())
+	random := rand.Intn(1000) + 1
+	time.Sleep(time.Duration(random+500) * time.Millisecond)
+	// end slowing things down.
 
 	return socks, nil
 }
